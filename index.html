@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <style>
+
+  	body {
+		font-family: sans-serif;
+  	}
+
+  	#container {
+  		margin: 0 auto;
+  		width: 555px;
+  		overflow: hidden;
+  	}
+
+  	#bottles,
+  	#cans,
+  	#cups {
+  		margin-top: 0;
+  		margin-bottom: 7px;
+  		display: inline-block;
+     	width: 100%;
+  	}
+
+  	.item-div {
+  		width: 27px;
+  		height: 65px;
+  		float: left;
+  		position: relative;
+	}
+
+	.item-div_can-div {
+		width: 20px;
+		height: 35px;
+		float: left;
+  		position: relative;
+	}
+
+	.inner-div_cup-div {
+		margin-right: 0.5px;
+		width: 18px;
+		height: 35px;
+		float: left;
+  		position: relative;
+	}
+
+	.item-can {
+		margin-right: 3px;
+		margin-bottom: 5px;
+		width: 20px;
+		height: 28px;
+		background-image: url("images/can.svg");
+  		background-repeat: no-repeat;
+		position: absolute;
+	    transform: translateX(800px);
+	}
+
+	.item-cup {
+		width: 18px;
+		height: 28px;
+		background-image: url("images/cup.svg");
+  		background-repeat: no-repeat;
+		position: absolute;
+	    transform: translateX(800px);
+	}
+
+	.item-bottles {
+		width: 27px;
+		height: 59px;
+  		background-image: url("images/2_liter_bottle.svg");
+  		background-repeat: no-repeat;
+  		position: absolute;
+	    transform: translateX(800px);
+	}
+
+	.moved {
+		transition: transform 0.8s ease-out;
+		transform: translateX(0);
+		will-change: transform;
+	}
+
+	@media screen and (max-width: 669px) {
+		#container {
+			width: 100%;
+		}
+
+		.item-div {
+			width: 22px;
+			height: 48px;
+		}
+
+		.item-div_can-div,
+		.inner-div_cup-div {
+			width: 15px;
+			height: 25px;
+		}
+
+		.item-bottles {
+			width: 22px;
+			height: 45px;
+		}
+
+		.item-can {
+			width: 15px;
+			height: 21px;
+		}
+
+		.item-cup {
+			width: 12px;
+			height: 21px;
+		}
+	}
+
+	@media screen and (max-width: 429px) {
+		#container {
+			width: 100%;
+		}
+
+		.item-div {
+			width: 15px;
+			height: 32px;
+		}
+
+		.item-div_can-div,
+		.inner-div_cup-div {
+			width: 10px;
+			height: 18px;
+		}
+
+		.item-bottles {
+			width: 15px;
+			height: 29px;
+		}
+
+		.item-can {
+			width: 10px;
+			height: 14px;
+		}
+
+		.item-cup {
+			width: 10px;
+			height: 17px;
+		}
+	}
+
+  </style>
+</head>
+
+<body>
+
+	<div id="container">
+		<h2>Number of Cokes drank during Freshman year of college.</h2>
+		<h3>Bottles</h3>
+		<div id="bottles"></div>
+		<h3>Cans</h3>
+		<div id="cans"></div>
+		<h3>Cups</h3>
+		<div id="cups"></div>
+	</div>
+
+	<script>
+
+		const data = [146, 42, 25];
+
+ 		// Divs and bottles
+		for (i = 0; i < data[0]; i++) {
+
+			// container divs of bottles, cans, and cups
+			const divTest = document.createElement('div');
+			// divTest.className = 'item-div ' + randomClass;
+			divTest.className = 'item-div';
+			document.getElementById('bottles').appendChild(divTest); // Creating 155 objects with class 'item-div'
+
+			// bottles
+			const itemBottle = document.createElement('div');
+			itemBottle.className = 'item-bottles';
+			document.getElementsByClassName('item-div')[i].appendChild(itemBottle);
+		}
+
+		// Can sub divs and cans
+		for (i = 0; i < data[1]; i++) {
+			// sub divs for cans
+			const itemDivCanDiv = document.createElement('div');
+			itemDivCanDiv.className = 'item-div_can-div';
+			document.getElementById('cans').appendChild(itemDivCanDiv);
+
+			// cans
+			const itemCan = document.createElement('div');
+			itemCan.className = 'item-can';
+			document.getElementsByClassName('item-div_can-div')[i].appendChild(itemCan);
+		}
+
+		// Cup sub divs and cups
+		for (i = 0; i < data[2]; i++) {
+			// sub divs for cups
+			const itemDivCupDiv = document.createElement('div');
+			itemDivCupDiv.className = 'inner-div_cup-div';
+			document.getElementById('cups').appendChild(itemDivCupDiv);
+
+			// cups
+			const itemCup = document.createElement('div');
+			itemCup.className = 'item-cup';
+			document.getElementsByClassName('inner-div_cup-div')[i].appendChild(itemCup);
+		}
+
+		function anim() {
+
+			const bottles = document.querySelectorAll('.item-bottles');
+			const cupsAndCans = document.querySelectorAll('.item-cup, .item-can');
+
+			bottles.forEach((bottle, i) => {
+				setTimeout(() => {
+					bottle.className += ' moved';
+				}, i * 20);
+			})
+
+			cupsAndCans.forEach((cupAndCan, i) => {
+				setTimeout(() => {
+					cupAndCan.className += ' moved';
+				}, i * 20);
+			})
+
+		}
+
+		window.onload = () => {
+			anim();
+		}
+	</script>
+</body>
+</html>
